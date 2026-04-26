@@ -17,6 +17,7 @@
 #include "Keyboard.h"
 #include "Memory.h"
 #include "Utilities.h"
+#include "Windows\Win32Frame.h"
 
 FileInfo loaded_floppy_disk = FINFO_DEFAULT;
 FileInfo loaded_hard_disk = FINFO_DEFAULT;
@@ -124,7 +125,7 @@ static void CausePause()
     g_nAppMode = MODE_PAUSED;
 }
 
-static void RebuildMenu()
+void RebuildMenu()
 {
     // get main menu handle
     HMENU hMainMenu = GetMenu(GetFrame().g_hFrameWindow);
@@ -136,7 +137,11 @@ static void RebuildMenu()
         DeleteMenu(hMainMenu, index, MF_BYPOSITION);
 
     // embed RA
-    AppendMenu(hMainMenu, MF_POPUP | MF_STRING, (UINT_PTR)RA_CreatePopupMenu(), TEXT("&RetroAchievements"));
+    Win32Frame& win32Frame = Win32Frame::GetWin32Frame();
+    if (!win32Frame.IsFullScreen())
+    {
+        AppendMenu(hMainMenu, MF_POPUP | MF_STRING, (UINT_PTR)RA_CreatePopupMenu(), TEXT("&RetroAchievements"));
+    }
 
     DrawMenuBar(GetFrame().g_hFrameWindow);
 }

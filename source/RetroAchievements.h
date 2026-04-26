@@ -53,6 +53,8 @@ int RA_ConfirmQuit();
 void RA_NavigateOverlayIfVisible();
 void RA_ProcessOverlayKey(int wparam, int down);
 
+void RebuildMenu();
+
 #endif /* RETROACHIEVEMENTS_H */
 
 #endif

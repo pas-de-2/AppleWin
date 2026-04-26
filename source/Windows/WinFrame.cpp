@@ -2386,6 +2386,9 @@ void Win32Frame::SetFullScreenMode(void)
 
 	InvalidateRect(g_hFrameWindow,NULL,1);
 
+#ifdef USE_RETROACHIEVEMENTS
+	RebuildMenu();
+#endif
 #endif // NO_DIRECT_X
 }
 
@@ -2418,6 +2421,9 @@ void Win32Frame::SetNormalMode(void)
 		g_main_window_saved_rect.bottom - g_main_window_saved_rect.top,
 		SWP_SHOWWINDOW);
 	g_bIsFullScreen = false;
+#ifdef USE_RETROACHIEVEMENTS
+	RebuildMenu();
+#endif
 }
 
 //===========================================================================
